@@ -9,17 +9,27 @@ import ro.ase.acs.Database;
 
 public class NoSqlDb implements Database {
 
-    private MongoClient mongoClient;
-    private MongoDatabase mongoDb;
-    private static MongoCollection<Document> collection;
+    private MongoClient mongoClient = null;
+    private MongoDatabase mongoDb = null;
+    private static MongoCollection<Document> collection = null;
 
     @Override
     public void createDb() {
-        createConnection();
-        createEntity();
-        insertData();
-        readData();
+//        createConnection();
+        Create create = new Create();
+        mongoDb = create.create();
+//        createEntity();
+        CreateEntity createEntity = new CreateEntity();
+        createEntity.createEntity(mongoDb);
+//        insertData();
+        InsertData insertData = new InsertData();
+        collection = insertData.insertData(mongoDb);
+//        readData();
+        ReadData readData = new ReadData();
+        readData.readData(collection);
         closeConnection();
+        Close close = new Close();
+        close.close(create.getMongoClient());
     }
 
     @Override
