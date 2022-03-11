@@ -40,7 +40,7 @@ public class SqlDb implements Database {
     public void closeConnection() {
         try {
             connection.close();
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
