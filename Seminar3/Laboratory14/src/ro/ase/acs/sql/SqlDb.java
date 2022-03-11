@@ -14,15 +14,26 @@ public class SqlDb implements Database {
     public static final String INSERT_INTO_EMPLOYEES_PARAMS = "INSERT INTO employees VALUES (?,?,?,?)";
     public static final String SELECT_FROM_EMPLOYEES = "SELECT * FROM employees";
 
-    private static Connection connection;
+    private static Connection connection = null;
 
     @Override
     public void createDb() {
-        createConnection();
-        createEntity();
-        insertData();
-        readData();
-        closeConnection();
+//        createConnection();
+        Create create = new Create();
+        connection = create.create();
+        CreateEntity createEntity = new CreateEntity();
+        createEntity.createEntity(connection);
+//        createEntity();
+        InsertData insertData = new InsertData();
+        insertData.insertData(connection);
+//        insertData();
+        ReadData readData = new ReadData();
+        readData.readData(connection);
+//        readData();
+        Close close = new Close();
+        close.close(connection);
+//        closeConnection();
+
     }
 
     @Override
